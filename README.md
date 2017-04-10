@@ -4,7 +4,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2016/17
 
 ## Tematika
 
-Analiziral bom turizem v Sloveniji. Osredotočil se bom na prihode in prenočitve domačih in tujih turistov po posameznih občinah in po skupinah nastanitvenih objektov od leta 2008 do 2015.Te podatke bom primerjal s prenočitvenimi zmogljivostmi turističnih objektov v občinah. Pregledal bom tudi vire informacij, na podlagi katerih so se tuji gosti odločili za prihod v Slovenijo. Primerjal bom tudi podatke letališkega potniškega prometa, prihode in odhode letal iz tujine, njihovo izkoriščenost in si ogledal, koliko turistov pride v Slovenijo z letalom.
+Analiziral bom turizem v Sloveniji. Osredotočil se bom na prihode in prenočitve domačih in tujih turistov po posameznih občinah in po skupinah nastanitvenih objektov od leta 2008 do 2015. Te podatke bom primerjal s prenočitvenimi zmogljivostmi turističnih objektov v občinah. Pregledal bom tudi vire informacij, na podlagi katerih so se tuji gosti odločili za prihod v Slovenijo. Primerjal bom tudi podatke letališkega potniškega prometa, prihode in odhode letal iz tujine, njihovo izkoriščenost in si ogledal, koliko turistov pride v Slovenijo z letalom.
 
 Podatki:
 
@@ -18,7 +18,7 @@ Podatki so v obliki CSV in HTML
 Zasnova podatkovnega modela:
 
 Prva tabela bo vsebovala prihode in prenočitve po občinah, po državi izvora turista, letno. Naslednja bo imela podatke o prenočitevnih zmogljivosti. Tretja bo vsebovala prihode in prenočitve po skupinah nastanitvenih objektov, četrta pa še o strukturi informacij, ki so vplivale na prihod turistov v Slovenijo.
-V naslednjem sklopu tabel pa bom pogledal zračni potniški promet. V eni tabeli bodo predstavljeni prihodi in odhodi letal po državah na letališču Jožeta Pučnika Ljubljana, v drugi pa izkoriščenost letal, oboje po letih.
+V naslednjem sklopu tabel pa bom pogledal zračni potniški promet. V eni tabeli bodo predstavljeni prihodi in odhodi letal po državah na letališču Jožeta Pučnika Ljubljana, v drugi pa izkoriščenost letal, oboje po letih. Dodal bom še tabelo števila potnikov na letališču Edvarda Rusjana Maribor skozi leta.
 
 ## Program
 
