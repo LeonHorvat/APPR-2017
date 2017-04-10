@@ -4,13 +4,21 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2016/17
 
 ## Tematika
 
-Analiziral bom turizem v Sloveniji. Osredotočil se bom na prihode in prenočitve domačih in tujih turistov po posameznih občinah in po skupinah nastanitvenih objektov od leta 2008 do 2015.Te podatke bom primerjal s prenočitvenimi zmogljivostmi turističnih objektov v občinah. Pregledal bom tudi vire informacij, na podlagi katerih so se tuji gosti odločili za prihod v Slovenijo. Primerjal bom tudi podatke letališkega potniškega prometa glede na prihode in odhode letal iz tujine, njihovo izkoriščenost in si ogledal, koliko turistov pride v Slovenijo z letalom.
+Analiziral bom turizem v Sloveniji. Osredotočil se bom na prihode in prenočitve domačih in tujih turistov po posameznih občinah in po skupinah nastanitvenih objektov od leta 2008 do 2015.Te podatke bom primerjal s prenočitvenimi zmogljivostmi turističnih objektov v občinah. Pregledal bom tudi vire informacij, na podlagi katerih so se tuji gosti odločili za prihod v Slovenijo. Primerjal bom tudi podatke letališkega potniškega prometa, prihode in odhode letal iz tujine, njihovo izkoriščenost in si ogledal, koliko turistov pride v Slovenijo z letalom.
 
 Podatki:
 
 * http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/02_21645_nastanitev_letno/02_21645_nastanitev_letno.asp
 * http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/10_tuji_turisti/10_21765_tuji_znac_prihoda_obc/10_21765_tuji_znac_prihoda_obc.asp
 * http://pxweb.stat.si/pxweb/Database/Ekonomsko/22_transport/05_22219_zracni_transport/05_22219_zracni_transport.asp
+* https://sl.wikipedia.org/wiki/Letali%C5%A1%C4%8De_Edvarda_Rusjana_Maribor
+
+Podatki so v obliki CSV in HTML
+
+Zasnova podatkovnega modela:
+
+Prva tabela bo vsebovala prihode in prenočitve po občinah, po državi izvora turista, letno. Naslednja bo imela podatke o prenočitevnih zmogljivosti. Tretja bo vsebovala prihode in prenočitve po skupinah nastanitvenih objektov, četrta pa še o strukturi informacij, ki so vplivale na prihod turistov v Slovenijo.
+V naslednjem sklopu tabel pa bom pogledal zračni potniški promet. V eni tabeli bodo predstavljeni prihodi in odhodi letal po državah na letališču Jožeta Pučnika Ljubljana, v drugi pa izkoriščenost letal, oboje po letih.
 
 ## Program
 
