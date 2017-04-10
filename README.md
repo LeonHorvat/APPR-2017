@@ -1,11 +1,16 @@
-# Analiza podatkov s programom R, 2016/17
+# Analiza turizma v Sloveniji
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2016/17
 
 ## Tematika
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal. Tukaj boste
-napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Analiziral bom turizem v Sloveniji. Osredotočil se bom na prihode in prenočitve domačih in tujih turistov po posameznih občinah in po skupinah nastanitvenih objektov od leta 2008 do 2015.Te podatke bom primerjal s prenočitvenimi zmogljivostmi turističnih objektov v občinah. Pregledal bom tudi vire informacij, na podlagi katerih so se tuji gosti odločili za prihod v Slovenijo. 
+
+Podatki:
+
+* http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/02_21645_nastanitev_letno/02_21645_nastanitev_letno.asp
+* http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/10_tuji_turisti/10_21765_tuji_znac_prihoda_obc/10_21765_tuji_znac_prihoda_obc.asp
+
 
 ## Program
 
