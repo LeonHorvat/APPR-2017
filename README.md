@@ -17,7 +17,7 @@ Podatki so v obliki CSV in HTML
 
 Zasnova podatkovnega modela:
 
-Prva tabela bo vsebovala prihode in prenočitve po občinah, po državi izvora turista, letno. Naslednja bo imela podatke o prenočitevnih zmogljivosti. Tretja bo vsebovala prihode in prenočitve po skupinah nastanitvenih objektov, četrta pa še o strukturi informacij, ki so vplivale na prihod turistov v Slovenijo.
+Prva tabela bo vsebovala prihode in prenočitve po vrsti občine, občinah, po državi izvora turista, letno. Naslednja bo imela podatke o prenočitevnih zmogljivosti. Tretja bo vsebovala prihode in prenočitve po skupinah nastanitvenih objektov, četrta pa še o strukturi informacij, ki so vplivale na prihod turistov v Slovenijo.
 V naslednjem sklopu tabel pa bom pogledal zračni potniški promet. V eni tabeli bodo predstavljeni prihodi in odhodi letal po državah na letališču Jožeta Pučnika Ljubljana, v drugi pa izkoriščenost letal, oboje po letih. Dodal bom še tabelo števila potnikov na letališču Edvarda Rusjana Maribor skozi leta.
 
 ## Program
