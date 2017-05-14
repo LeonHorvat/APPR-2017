@@ -55,9 +55,13 @@
 #Uvoz podatkov LEON HORVAT
 
 #tabela, ki prikazuje letališki promet
-stolpci1 <- c("Leto", "Prihod/odhod", "Redni/posebni", "Država", "Število potnikov")
+
+library(readr)
+stolpci1 <- c("Leto", "Prihod-odhod", "Redni-posebni", "Drzava", "Stevilo potnikov")
 letaliski_promet <- read.csv2("podatki/Letaliski_potniski_promet_glede_na_prihod_odhod_letal,_po_drzavah,_LJP,_letno,_(do_Malte).csv",
-                              locale=locale(encoding="cp1250"),
-                              col_names=stolpci1)
+
+                              colnames = FALSE,
+                              na = "-")
+                              #locale = locale(encoding = "Windows-1250"))
 
 
