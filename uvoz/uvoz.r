@@ -60,8 +60,8 @@ library(readr)
 stolpci1 <- c("Leto", "Prihod-odhod", "Redni-posebni", "Drzava", "Stevilo potnikov")
 letaliski_promet <- read.csv2("podatki/Letaliski_potniski_promet_glede_na_prihod_odhod_letal,_po_drzavah,_LJP,_letno,_(do_Malte).csv",
 
-                              colnames = FALSE,
-                              na = "-")
-                              #locale = locale(encoding = "Windows-1250"))
+                              col_names = c("Leto", "Prihod-odhod", "Redni-posebni", "Drzava", "Stevilo potnikov"),
+                              na = "-",
+                              locale = locale(encoding = "Windows-1250"))
 
 
