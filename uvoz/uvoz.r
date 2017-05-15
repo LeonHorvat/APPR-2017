@@ -53,11 +53,11 @@
 # fazah.
 
 #Uvoz podatkov LEON HORVAT
-
+require(readr)
+require(xlsx)
+library(readr)
 #tabela, ki prikazuje letališki promet
-stolpci1 <- c("Leto", "Prihod/odhod", "Redni/posebni", "Država", "Število potnikov")
-letaliski_promet <- read.csv2("podatki/Letaliski_potniski_promet_glede_na_prihod_odhod_letal,_po_drzavah,_LJP,_letno,_(do_Malte).csv",
-                              locale=locale(encoding="cp1250"),
-                              col_names=stolpci1)
-
-
+stolpci1 <- c("Leto", "Prihod_odhod", "Redni_posebni", "Država", "Število potnikov")
+letaliski_promet <- read.csv2("podatki/Letaliski_potniski_promet_glede_na_prihod_odhod_letal,_po_drzavah,_LJP,_letno,_(do_Malte).csv")
+ 
+colnames(letaliski_promet) <- stolpci1
