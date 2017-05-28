@@ -1,61 +1,4 @@
-# 2. faza: Uvoz podatkov
-
-# Funkcija, ki uvozi občine iz Wikipedije
-#uvozi.obcine <- function() {
-#  link <- "http://sl.wikipedia.org/wiki/Seznam_ob%C4%8Din_v_Sloveniji"
-#  stran <- html_session(link) %>% read_html()
-#  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-#    .[[1]] %>% html_table(dec = ",")
-#  colnames(tabela) <- c("obcina", "povrsina", "prebivalci", "gostota", "naselja",
-#                        "ustanovitev", "pokrajina", "regija", "odcepitev")
-#  tabela$obcina <- gsub("Slovenskih", "Slov.", tabela$obcina)
-#  tabela$obcina[tabela$obcina == "Kanal ob Soči"] <- "Kanal"
-#  tabela$obcina[tabela$obcina == "Loški potok"] <- "Loški Potok"
-#  for (col in colnames(tabela)) {
-#   tabela[tabela[[col]] == "-", col] <- NA
-#  }
-#  for (col in c("povrsina", "prebivalci", "gostota", "naselja", "ustanovitev")) {
-#    if (is.numeric(tabela[[col]])) {
-#      next()
-#    }
-#    tabela[[col]] <- gsub("[.*]", "", tabela[[col]]) %>% as.numeric()
-#  }
-#  for (col in c("obcina", "pokrajina", "regija")) {
-#    tabela[[col]] <- factor(tabela[[col]])
-#  }
-#  return(tabela)
-#}
-
-# Funkcija, ki uvozi podatke iz datoteke druzine.csv
-#uvozi.druzine <- function(obcine) {
-#  data <- read_csv2("podatki/druzine.csv", col_names = c("obcina", 1:4),
-#                    locale = locale(encoding = "Windows-1250"))
-#  data$obcina <- data$obcina %>% strapplyc("^([^/]*)") %>% unlist() %>%
-#    strapplyc("([^ ]+)") %>% sapply(paste, collapse = " ") %>% unlist()
-#  data$obcina[data$obcina == "Sveti Jurij"] <- "Sveti Jurij ob Ščavnici"
-#  data <- data %>% melt(id.vars = "obcina", variable.name = "velikost.druzine",
-#                        value.name = "stevilo.druzin")
-#  data$velikost.druzine <- as.numeric(data$velikost.druzine)
-#  data$obcina <- factor(data$obcina, levels = obcine)
-#  return(data)
-#}
-
-# Zapišimo podatke v razpredelnico obcine
-#obcine <- uvozi.obcine()
-
-# Zapišimo podatke v razpredelnico druzine.
-#druzine <- uvozi.druzine(levels(obcine$obcina))
-
-# Če bi imeli več funkcij za uvoz in nekaterih npr. še ne bi
-# potrebovali v 3. fazi, bi bilo smiselno funkcije dati v svojo
-# datoteko, tukaj pa bi klicali tiste, ki jih potrebujemo v
-# 2. fazi. Seveda bi morali ustrezno datoteko uvoziti v prihodnjih
-# fazah.
-
 #Uvoz podatkov LEON HORVAT
-require(readr)
-library(readr)
-library(dplyr)
 
 
 #tabela, ki prikazuje letališki promet
@@ -85,8 +28,9 @@ letaliski_promet <- letaliski_promet %>% filter(Prihod_odhod != "Prihod/odhod le
 stolpci2 <- c("obcina","objekt","leto","meritev", "stevilo")
 zmogljivosti <- read.csv2("podatki/Prenocitvene_zmogljivosti1.csv",
                           na = c("-",""," ","..."),
-                          skip = 1,
-                          col.names = stolpci2)
+                          header = FALSE,
+                          skip = 1)
+colnames(zmogljivosti) <- stolpci2
 zmogljivosti <- zmogljivosti[-c(30303:30325), ] %>% 
                 fill(1:3) %>%
                 drop_na(stevilo)
@@ -96,19 +40,22 @@ zmogljivosti$stevilo <- parse_integer(zmogljivosti$stevilo)
 
 #tabela s prihodi in prenočitvami turistov posamezne države
 
-stolpci3 <- c("skupaj", "obcina", "drzava", "leto", "prihod-prenocitev", "stevilo")
+stolpci3 <- c("skupaj", "obcina", "drzava", "leto", "prihod_prenocitev", "stevilo")
 prihodi_prenocitve1 <- read.csv2("podatki/Prihodi_in_prenocitve1.csv",
                                  na = c("-", "z", " ", ""),
-                                 col.names = stolpci3,
-                                 skip = 1)
+                                 header = FALSE,
+                                 skip = 2)
+colnames(prihodi_prenocitve1) <- stolpci3
 prihodi_prenocitve2 <- read.csv2("podatki/Prihodi_in_prenocitve2.csv",
                                  na = c("-", "z", " ", ""),
-                                 col.names = stolpci3,
-                                 skip = 1)
+                                 header = FALSE,
+                                 skip = 2)
+colnames(prihodi_prenocitve2) <- stolpci3
 prihodi_prenocitve3 <- read.csv2("podatki/Prihodi_in_prenocitve3.csv",
                                  na = c("-", "z", " ", ""),
-                                 col.names = stolpci3,
-                                 skip = 1)
+                                 header = FALSE,
+                                 skip = 2)
+colnames(prihodi_prenocitve3) <- stolpci3
 prihodi_prenocitve <- rbind(prihodi_prenocitve1,prihodi_prenocitve2,prihodi_prenocitve3)
 
 prihodi_prenocitve$skupaj <- NULL
@@ -120,15 +67,24 @@ prihodi_prenocitve <- prihodi_prenocitve %>%
 
 #tabela o zracnem prometu
 
-stolpci4 <- c("leto", "redni-posebni", "mednarodni", "potniki(1000)", "izkoriscenost(%)")
+stolpci4 <- c("leto", "redni_posebni", "mednarodni", "potniki_1000", "izkoriscenost")
 zracni_promet <- read.csv2("podatki/Zracni_potniski_promet_in_izkoriscenost_letal.csv",
                            header = FALSE,
                            col.names = stolpci4)
 
+zracni_promet <- zracni_promet %>% filter(redni_posebni != "Redni/posebni prevoz - SKUPAJ",
+                                          mednarodni != "Mednarodni prevoz - SKUPAJ")
 
 
+#tabela o potnikih letalisca maribor
 
+link <- "https://sl.wikipedia.org/wiki/Letali%C5%A1%C4%8De_Edvarda_Rusjana_Maribor"
+stran <- html_session(link) %>% read_html()
+potniki_mb <- stran %>% html_nodes(xpath="//table[@class='wikitable']") %>%.[[2]]%>% html_table()
 
+names(potniki_mb) <- c("leto", "stevilo_potnikov", "rast")
+
+potniki_mb$"stevilo_potnikov" <- gsub(",","",potniki_mb$"stevilo_potnikov") %>% parse_integer()
 
 
 
