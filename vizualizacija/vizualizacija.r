@@ -13,12 +13,39 @@ prihodi_po_letih <- prihodi_prenocitve %>%
   group_by(leto) %>% summarise(prihodi = sum(stevilo))
 
 potniki_in_prihodi <- inner_join(prihodi_po_letih, potniki_po_letih) %>%
-  melt(id.vars="leto")
+  melt(id.vars="leto", variable.name = "meritev", value.name = 'stevilo')
 
-g1 <- ggplot(potniki_in_prihodi, aes(x = leto, y = value, group = variable, colour = variable)) + 
+g1 <- ggplot(potniki_in_prihodi, aes(x = leto, y = stevilo, group = meritev, colour = meritev)) + 
   geom_line() + theme_minimal()
 
-#
+
+# pregled izkoriščenosti letal  
+
+g2 <- zracni_promet %>% filter(mednarodni != "Mednarodni prevoz - let po tujini") %>%
+  group_by(leto) %>% 
+  summarise(izkoriscenost = sum(potniki_1000*izkoriscenost)/sum(potniki_1000)) %>%
+  ggplot(aes(x = leto, y = izkoriscenost)) +
+  geom_line(size = 1.5, color = 'royalblue') + theme_minimal()
+
+# pregled izkoriščenosti nastanitvenih kapacitet
+
+prenocitve_po_letih <- prihodi_prenocitve %>% 
+  filter(prihod_prenocitev == "Prenočitve turistov - SKUPAJ") %>%
+  group_by(leto) %>% summarise(prenocitve = sum(stevilo))
+
+zmogljivost_letno <- zmogljivosti %>% 
+  filter(meritev == 'Zmogljivosti - ležišča - stalna') %>%
+  group_by(leto) %>% summarise(stevilo = sum(stevilo)*365)
+
+izkoriscenost <- inner_join(prenocitve_po_letih, zmogljivost_letno)
+izkoriscenost["izkoriscenost"] <- NA
+izkoriscenost$izkoriscenost <- izkoriscenost$prenocitve / izkoriscenost$stevilo
+  
+g3 <-  ggplot(izkoriscenost, aes(x = leto, y = izkoriscenost)) + 
+  geom_line(size = 1.5, color = 'royalblue') + theme_minimal()
+  
+
+
 
 
 # Uvozimo zemljevid.

@@ -75,7 +75,8 @@ zracni_promet <- read.csv2("podatki/Zracni_potniski_promet_in_izkoriscenost_leta
 
 zracni_promet <- zracni_promet %>% filter(redni_posebni != "Redni/posebni prevoz - SKUPAJ",
                                           mednarodni != "Mednarodni prevoz - SKUPAJ")
-
+zracni_promet$potniki_1000 <- parse_number(zracni_promet$potniki_1000)
+zracni_promet$izkoriscenost <- parse_number(zracni_promet$izkoriscenost)
 
 #tabela o potnikih letalisca maribor
 

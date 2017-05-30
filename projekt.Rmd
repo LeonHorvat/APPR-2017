@@ -21,7 +21,7 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+
 
 ***
 
@@ -31,20 +31,24 @@ Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Poglejmo si začetka obeh uvoženih razpredelnic.
+Podatke sem uvozil it Statističnega urada Slovenije v obliki CSV, to so tabele 1, 2, 4, 5. Tabelo o potnikih na mariborskem letališču pa sem uvozil v obliki HTML iz Wikipedije.
+Začetki vseh uvoženih razpredelnic.
 
 ```{r razpredelnice}
-kable(head(druzine))
-head(obcine)
+kable(head(letaliski_promet))
+kable(head(zracni_promet))
+kable(head(potniki_mb))
+kable(head(zmogljivosti))
+kable(head(prihodi_prenocitve))
 ```
 
-Slika \ref{fig:histogram} prikazuje porazdelitev števila naselij v občinah.
+Črtni graf \ref{fig:graf} prikazuje gibanje prihodov tujih turistov v Slovenijo in število potnikov v zračnem prometu, ki so prispeli v Slovenijo. Vidimo, da je število prihodov tujih turistov bolj raslo kot število letalskih potnikov.
 
-```{r histogram, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-ggplot(obcine, aes(x = naselja)) + geom_histogram() +
-  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
+```{r graf, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Graf prihodov turistov in letalskih potnikov'}
+print(g1)
 ```
+
+
 
 ***
 
