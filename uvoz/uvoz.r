@@ -3,7 +3,7 @@
 
 #tabela, ki prikazuje letališki promet
 
-stolpci1 <- c("Leto", "Prihod_odhod", "Redni_posebni", "Država", "Število potnikov")
+stolpci1 <- c("leto", "prihod_odhod", "redni_posebni", "drzava", "stevilo_potnikov")
 letaliski_promet1 <- read.csv2("podatki/Letaliski_potniski_promet_glede_na_prihod_odhod_letal,_po_drzavah,_LJP,_letno,_(do_Malte).csv",
                                na = "-",
                                header = FALSE)
@@ -14,13 +14,14 @@ letaliski_promet2 <- read.csv2("podatki/Letaliski_potniski_promet_glede_na_priho
                                header = FALSE)
 colnames(letaliski_promet2) <- stolpci1
 
-letaliski_promet1$Država <- as.character(letaliski_promet1$Država)
-letaliski_promet2$Država <- as.character(letaliski_promet2$Država)
+letaliski_promet1$drzava <- as.character(letaliski_promet1$drzava)
+letaliski_promet2$drzava <- as.character(letaliski_promet2$drzava)
 
 letaliski_promet <- rbind(letaliski_promet1, letaliski_promet2)
-letaliski_promet <- letaliski_promet %>% filter(Prihod_odhod != "Prihod/odhod letal - SKUPAJ",
-                            Redni_posebni != "Redni/posebni prevoz - SKUPAJ",
-                            Država != "Države prihoda/odhoda letal - SKUPAJ")
+letaliski_promet <- letaliski_promet %>% filter(prihod_odhod != "Prihod/odhod letal - SKUPAJ",
+                            redni_posebni != "Redni/posebni prevoz - SKUPAJ",
+                            drzava != "Države prihoda/odhoda letal - SKUPAJ") %>%
+                            drop_na(stevilo_potnikov)
 
 
 #tabela s prenočitvenimi zmogljivostmi
@@ -86,5 +87,5 @@ names(potniki_mb) <- c("leto", "stevilo_potnikov", "rast")
 
 potniki_mb$"stevilo_potnikov" <- gsub(",","",potniki_mb$"stevilo_potnikov") %>% parse_integer()
 
-
+potniki_mb$"rast" <- NULL
 

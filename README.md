@@ -19,7 +19,7 @@ Zasnova podatkovnega modela:
 
 * Tabela 1: stolpci: leto, prihod ali odhod letala, redni ali posebni prevoz, država, število potnikov
 * Tabela 2: stolpci: leto, redni ali posebni prevoz, mednarodni, število potnikov v 1000, izkoriščenost
-* Tabela 3: stolpci: leto, število potnikov, rast
+* Tabela 3: stolpca: leto, število potnikov
 * Tabela 4: stolpci: občina, nastanitveni objekt, leto, meritev, število
 * Tabela 5: stolpci: občina, država turista, leto, prihod oz. prenočitev, število
 
