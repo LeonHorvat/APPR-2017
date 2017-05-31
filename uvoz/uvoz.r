@@ -4,18 +4,15 @@
 #tabela, ki prikazuje letališki promet
 
 stolpci1 <- c("leto", "prihod_odhod", "redni_posebni", "drzava", "stevilo_potnikov")
-letaliski_promet1 <- read.csv2("podatki/Letaliski_potniski_promet_glede_na_prihod_odhod_letal,_po_drzavah,_LJP,_letno,_(do_Malte).csv",
+letaliski_promet1 <- read_csv2("podatki/Letaliski_potniski_promet_glede_na_prihod_odhod_letal,_po_drzavah,_LJP,_letno,_(do_Malte).csv",
                                na = "-",
-                               header = FALSE)
-colnames(letaliski_promet1) <- stolpci1
+                               col_names = stolpci1,
+                               locale = locale(encoding = "Windows-1250"))
 
-letaliski_promet2 <- read.csv2("podatki/Letaliski_potniski_promet_glede_na_prihod_odhod_letal,_po_drzavah,_LJP,_letno,_(od Maroka).csv",
+letaliski_promet2 <- read_csv2("podatki/Letaliski_potniski_promet_glede_na_prihod_odhod_letal,_po_drzavah,_LJP,_letno,_(od Maroka).csv",
                                na = "-",
-                               header = FALSE)
-colnames(letaliski_promet2) <- stolpci1
-
-letaliski_promet1$drzava <- as.character(letaliski_promet1$drzava)
-letaliski_promet2$drzava <- as.character(letaliski_promet2$drzava)
+                               col_names = stolpci1,
+                               locale = locale(encoding = "Windows-1250"))
 
 letaliski_promet <- rbind(letaliski_promet1, letaliski_promet2)
 letaliski_promet <- letaliski_promet %>% filter(prihod_odhod != "Prihod/odhod letal - SKUPAJ",
@@ -27,56 +24,58 @@ letaliski_promet <- letaliski_promet %>% filter(prihod_odhod != "Prihod/odhod le
 #tabela s prenočitvenimi zmogljivostmi
 
 stolpci2 <- c("obcina","objekt","leto","meritev", "stevilo")
-zmogljivosti <- read.csv2("podatki/Prenocitvene_zmogljivosti1.csv",
+zmogljivosti <- read_csv2("podatki/Prenocitvene_zmogljivosti1.csv",
                           na = c("-",""," ","..."),
-                          header = FALSE,
-                          skip = 1)
-colnames(zmogljivosti) <- stolpci2
+                          col_names = stolpci2,
+                          skip = 1,
+                          locale = locale(encoding = "Windows-1250"))
+
 zmogljivosti <- zmogljivosti[-c(30303:30325), ] %>% 
                 fill(1:3) %>%
                 drop_na(stevilo)
-                
-zmogljivosti$stevilo <- parse_integer(zmogljivosti$stevilo)
                         
 
 #tabela s prihodi in prenočitvami turistov posamezne države
 
 stolpci3 <- c("skupaj", "obcina", "drzava", "leto", "prihod_prenocitev", "stevilo")
-prihodi_prenocitve1 <- read.csv2("podatki/Prihodi_in_prenocitve1.csv",
+prihodi_prenocitve1 <- read_csv2("podatki/Prihodi_in_prenocitve1.csv",
                                  na = c("-", "z", " ", ""),
-                                 header = FALSE,
-                                 skip = 2)
-colnames(prihodi_prenocitve1) <- stolpci3
-prihodi_prenocitve2 <- read.csv2("podatki/Prihodi_in_prenocitve2.csv",
+                                 col_names = stolpci3,
+                                 skip = 2,
+                                 locale = locale(encoding = "Windows-1250"))
+
+prihodi_prenocitve2 <- read_csv2("podatki/Prihodi_in_prenocitve2.csv",
                                  na = c("-", "z", " ", ""),
-                                 header = FALSE,
-                                 skip = 2)
-colnames(prihodi_prenocitve2) <- stolpci3
-prihodi_prenocitve3 <- read.csv2("podatki/Prihodi_in_prenocitve3.csv",
+                                 col_names = stolpci3,
+                                 skip = 2,
+                                 locale = locale(encoding = "Windows-1250"))
+
+prihodi_prenocitve3 <- read_csv2("podatki/Prihodi_in_prenocitve3.csv",
                                  na = c("-", "z", " ", ""),
-                                 header = FALSE,
-                                 skip = 2)
-colnames(prihodi_prenocitve3) <- stolpci3
+                                 col_names = stolpci3,
+                                 skip = 2,
+                                 locale = locale(encoding = "Windows-1250"))
+
 prihodi_prenocitve <- rbind(prihodi_prenocitve1,prihodi_prenocitve2,prihodi_prenocitve3)
 
 prihodi_prenocitve$skupaj <- NULL
+prihodi_prenocitve$stevilo[is.na(prihodi_prenocitve$stevilo)] <- 0
 
 prihodi_prenocitve <- prihodi_prenocitve %>%
                     fill(1:3) %>%
-                    drop_na(stevilo)
+                    drop_na(prihod_prenocitev) %>% filter(!(obcina %in% c('LJUBLJANA', 'SLOVENIJA')))
 
 
 #tabela o zracnem prometu
 
-stolpci4 <- c("leto", "redni_posebni", "mednarodni", "potniki_1000", "izkoriscenost")
-zracni_promet <- read.csv2("podatki/Zracni_potniski_promet_in_izkoriscenost_letal.csv",
-                           header = FALSE,
-                           col.names = stolpci4)
+stolpci4 <- c("leto", "redni_posebni", "mednarodni", "potniki", "izkoriscenost")
+zracni_promet <- read_csv2("podatki/Zracni_potniski_promet_in_izkoriscenost_letal.csv",
+                           col_names = stolpci4,
+                           locale = locale(encoding = "Windows-1250"))
 
 zracni_promet <- zracni_promet %>% filter(redni_posebni != "Redni/posebni prevoz - SKUPAJ",
                                           mednarodni != "Mednarodni prevoz - SKUPAJ")
-zracni_promet$potniki_1000 <- parse_number(zracni_promet$potniki_1000)
-zracni_promet$izkoriscenost <- parse_number(zracni_promet$izkoriscenost)
+zracni_promet$izkoriscenost <- zracni_promet$izkoriscenost / 1000
 
 #tabela o potnikih letalisca maribor
 

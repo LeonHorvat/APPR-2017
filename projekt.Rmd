@@ -42,50 +42,42 @@ kable(head(zmogljivosti))
 kable(head(prihodi_prenocitve))
 ```
 
-Črtni graf \ref{fig:graf} prikazuje gibanje prihodov tujih turistov v Slovenijo in število potnikov v zračnem prometu, ki so prispeli v Slovenijo. Vidimo, da je število prihodov tujih turistov bolj raslo kot število letalskih potnikov.
-
-```{r graf, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Graf prihodov turistov in letalskih potnikov'}
-print(g1)
-```
-
-
-
-***
-
-# Analiza in vizualizacija podatkov
+#Preliminarna analiza
 
 ```{r vizualizacija, echo=FALSE, message=FALSE}
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
 
-Slika \ref{fig:zemljevid} prikazuje povprečno velikost družine za vsako občino.
+Črtni graf \ref{fig:graf1} prikazuje gibanje prihodov tujih turistov v Slovenijo in število potnikov v zračnem prometu, ki so prispeli v Slovenijo. Vidimo, da je število prihodov tujih turistov bolj raslo kot število letalskih potnikov.
 
-```{r zemljevid, echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-ggplot() + geom_polygon(data = left_join(zemljevid, povprecja, by = c("OB_UIME" = "obcina")),
-                        aes(x = long, y = lat, group = group, fill = povprecje)) +
-  ggtitle("Povprečno število otrok v družini") + xlab("") + ylab("") +
-  guides(fill = guide_colorbar(title = "Povprečje"))
+```{r graf1, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Graf prihodov turistov in letalskih potnikov'}
+print(g1)
 ```
+
+Naslednji graf \ref{fig:graf2} prikazuje izkoriščenost potniških letal, ki so letela iz Slovenije in v Slovenijo od leta 2007 do 2016.
+
+```{r graf2, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Graf izkoriščenosti letal'}
+print(g2)
+```
+
+TUdi graf 3 \ref{fig:graf3} prikazuje izkoriščenost, natančneje izkoriščenost stalnih turističnih nastanitvenih kapacitet v Sloveniji.
+
+```{r graf3, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Graf izkoriščenosti nastanitvenih kapacitet'}
+print(g3)
+```
+***
+
+# Analiza in vizualizacija podatkov
+
+
+
+
 
 ***
 
 # Napredna analiza podatkov
 
-```{r analiza, echo=FALSE, message=FALSE}
-source("analiza/analiza.r", encoding = "UTF-8")
-```
 
-Slika \ref{fig:graf} prikazuje povezavo med številom naselij in površino občine.
-
-```{r graf, echo=FALSE, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina = names(skupine),
-                                     skupina = factor(skupine)), by = "obcina")
-, aes(x = povrsina, y = naselja, color = skupina, size = prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color = guide_legend(title = "Skupina"),
-         size = guide_legend(title = "Prebivalci (* 1000)"))
-```
 
 ***
 
