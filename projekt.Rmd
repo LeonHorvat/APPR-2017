@@ -27,7 +27,7 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Obdelava, uvoz in čiščenje podatkov
 
-```{r uvoz, echo=FALSE, message=FALSE}
+```{r uvoz, echo=FALSE, message=FALSE, warning=FALSE}
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
@@ -48,7 +48,7 @@ kable(head(prihodi_prenocitve))
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
 
-Črtni graf \ref{fig:graf1} prikazuje gibanje prihodov tujih turistov v Slovenijo in število potnikov v zračnem prometu, ki so prispeli v Slovenijo. Vidimo, da je število prihodov tujih turistov bolj raslo kot število letalskih potnikov.
+Črtni graf \ref{fig:graf1} primerja gibanje prihodov tujih turistov v Slovenijo s številom potnikov v zračnem prometu, ki so prispeli v Slovenijo. Vidimo, da je število prihodov tujih turistov bolj raslo kot število letalskih potnikov.
 
 ```{r graf1, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Graf prihodov turistov in letalskih potnikov'}
 print(g1)
@@ -60,7 +60,7 @@ Naslednji graf \ref{fig:graf2} prikazuje izkoriščenost potniških letal, ki so
 print(g2)
 ```
 
-TUdi graf 3 \ref{fig:graf3} prikazuje izkoriščenost, natančneje izkoriščenost stalnih turističnih nastanitvenih kapacitet v Sloveniji.
+Tudi graf 3 \ref{fig:graf3} prikazuje izkoriščenost, natančneje izkoriščenost stalnih turističnih nastanitvenih kapacitet v Sloveniji.
 
 ```{r graf3, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Graf izkoriščenosti nastanitvenih kapacitet'}
 print(g3)
@@ -69,9 +69,17 @@ print(g3)
 
 # Analiza in vizualizacija podatkov
 
+S pomočjo zemljevida sem prikazal število prenočitev v posamezni občini v letu 2016. Zaradi boljše preglednosti sem število prenočitev logaritmiral. Brez tega bi občine z največ turisti preveč izstopale, ostalih pa med sabo ne bi ločili. Občine brez turističnih prenočitev so obarvane sivo.
 
+```{r zemljevid1, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Zemljevid prenočitev'}
+print(z1)
+```
 
+Na naslednjem zemljevidu pa je vidno povprečno število nočitev turistov v letu 2016; torej kvocient prenočitev in prihodov. Tudi tukaj so občine brez prenočitev obarvane sivo.
 
+```{r zemljevid2, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila nočitev'}
+print(z2)
+```
 
 ***
 
@@ -81,6 +89,5 @@ print(g3)
 
 ***
 
-```{r shiny, echo = FALSE}
-shinyAppDir("shiny", options=list(width="100%", height=600))
+```
 ```
