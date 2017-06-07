@@ -20,18 +20,15 @@ source("lib/libraries.r", encoding = "UTF-8")
 ```
 
 # Izbira teme
-
+Analiziral bom turizem v Sloveniji. Osredotočil se bom na prihode in prenočitve domačih in tujih turistov po posameznih občinah in po skupinah nastanitvenih objektov od leta 2008 do 2015. Te podatke bom primerjal s prenočitvenimi zmogljivostmi turističnih objektov v občinah. Primerjal bom tudi podatke letališkega potniškega prometa, prihode in odhode letal iz tujine, njihovo izkoriščenost in si ogledal, koliko turistov pride v Slovenijo z letalom.
 
 
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
 
-<<<<<<< HEAD
-```{r uvoz, echo=FALSE, message=FALSE, warning = FALSE}
-=======
 ```{r uvoz, echo=FALSE, message=FALSE, warning=FALSE}
->>>>>>> 2a62a2b95b98b5d0f3f9c934d73aa51e00d10804
+
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
