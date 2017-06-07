@@ -15,8 +15,8 @@ prihodi_po_letih <- prihodi_prenocitve %>%
 potniki_in_prihodi <- inner_join(prihodi_po_letih, potniki_po_letih) %>%
   melt(id.vars="leto", variable.name = "meritev", value.name = 'stevilo')
 
-g1 <- ggplot(potniki_in_prihodi, aes(x = leto, y = stevilo, group = meritev, colour = meritev)) + 
-  geom_line(size = 1.5) + theme_minimal()
+g1 <- ggplot(potniki_in_prihodi, aes(x = leto, y = stevilo/1e6, group = meritev, colour = meritev)) + 
+  geom_line(size = 1.5) + theme_minimal() + xlab("Leto") + ylab("Milijoni")
 
 
 # pregled izkoriščenosti letal  
@@ -69,12 +69,23 @@ for (i in 1:nrow(primerjava)){
 }
 prihodi_obcine$obcina <- factor(prihodi_obcine$obcina, levels = imena_obcin2)
 
+# zemljevid Slovenije pobarvan glede na število prenočitev v občini leta 2016
+prenocitve_obcine_2016 <- prihodi_obcine %>% 
+  filter(leto == 2016, prihod_prenocitev == 'Prenočitve turistov - SKUPAJ') %>%
+  group_by(obcina) %>% summarise(logaritmirano_stevilo = log(sum(stevilo), 1.01))
+
+z1 <- ggplot() + geom_polygon(data = inner_join(zemljevid_slo, prenocitve_obcine_2016, by = c("OB_UIME"='obcina')),
+                              aes(x = long, y = lat, group = group, fill = logaritmirano_stevilo))
 
 
+# zemljevid Slovenije pobarvan glede na povprečno število prenočitev turista v občini leta 2016
+nocitve_obcine_2016 <- prihodi_obcine %>% filter(leto == 2016) %>%
+  dcast(obcina ~ prihod_prenocitev, sum)
+nocitve_obcine_2016['nocitve'] <- NA
+nocitve_obcine_2016$nocitve <- nocitve_obcine_2016$'Prenočitve turistov - SKUPAJ' / nocitve_obcine_2016$'Prihodi turistov - SKUPAJ' 
 
-
-
-
+z2 <- ggplot() + geom_polygon(data = inner_join(zemljevid_slo, nocitve_obcine_2016, by = c("OB_UIME"='obcina')),
+                              aes(x = long, y = lat, group = group, fill = nocitve))
 
 
 
