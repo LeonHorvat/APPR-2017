@@ -16,7 +16,11 @@ potniki_in_prihodi <- inner_join(prihodi_po_letih, potniki_po_letih) %>%
   melt(id.vars="leto", variable.name = "meritev", value.name = 'stevilo')
 
 g1 <- ggplot(potniki_in_prihodi, aes(x = leto, y = stevilo/1e6, group = meritev, colour = meritev)) + 
-  geom_line(size = 1.5) + theme_minimal() + xlab("Leto") + ylab("Milijoni")
+  geom_line(size = 1.5) + theme_minimal() + xlab("Leto") + ylab("Milijoni") +
+  scale_colour_discrete(name="Meritev",
+                     breaks=c("prihodi", "stevilo_potnikov"),
+                     labels=c("Prihodi turistov", "Letalski potniki"))
+  
 
 
 # pregled izkoriščenosti letal  
@@ -24,7 +28,7 @@ g1 <- ggplot(potniki_in_prihodi, aes(x = leto, y = stevilo/1e6, group = meritev,
 g2 <- zracni_promet %>% filter(mednarodni != "Mednarodni prevoz - let po tujini") %>%
   group_by(leto) %>% 
   summarise(izkoriscenost = sum(potniki*izkoriscenost)/sum(potniki)) %>%
-  ggplot(aes(x = leto, y = izkoriscenost)) +
+  ggplot(aes(x = leto, y = izkoriscenost)) + xlab("Leto") + ylab("Izkoriščenost") +
   geom_line(size = 1.5, color = 'royalblue') + theme_minimal()
 
 # pregled izkoriščenosti nastanitvenih kapacitet
@@ -42,6 +46,7 @@ izkoriscenost["izkoriscenost"] <- NA
 izkoriscenost$izkoriscenost <- izkoriscenost$prenocitve / izkoriscenost$stevilo
   
 g3 <-  ggplot(izkoriscenost, aes(x = leto, y = izkoriscenost)) + 
+  xlab("Leto") + ylab("Izkoriščenost") +
   geom_line(size = 1.5, color = 'royalblue') + theme_minimal()
   
 
@@ -75,7 +80,8 @@ prenocitve_obcine_2016 <- prihodi_obcine %>%
   group_by(obcina) %>% summarise(logaritmirano_stevilo = log(sum(stevilo), 1.01))
 
 z1 <- ggplot() + geom_polygon(data = inner_join(zemljevid_slo, prenocitve_obcine_2016, by = c("OB_UIME"='obcina')),
-                              aes(x = long, y = lat, group = group, fill = logaritmirano_stevilo))
+                              aes(x = long, y = lat, group = group, fill = logaritmirano_stevilo)) + 
+      scale_fill_continuous(name="Logaritmirano število")
 
 
 # zemljevid Slovenije pobarvan glede na povprečno število prenočitev turista v občini leta 2016
@@ -85,9 +91,34 @@ nocitve_obcine_2016['nocitve'] <- NA
 nocitve_obcine_2016$nocitve <- nocitve_obcine_2016$'Prenočitve turistov - SKUPAJ' / nocitve_obcine_2016$'Prihodi turistov - SKUPAJ' 
 
 z2 <- ggplot() + geom_polygon(data = inner_join(zemljevid_slo, nocitve_obcine_2016, by = c("OB_UIME"='obcina')),
-                              aes(x = long, y = lat, group = group, fill = nocitve))
+                              aes(x = long, y = lat, group = group, fill = nocitve)) + 
+      scale_fill_continuous(name="Nočitve")
 
 
+# primerjava števila turistov iz posamezne države in števila letalskih potnikov
+drzave_turist <- prihodi_prenocitve %>% 
+  filter(leto == 2015, prihod_prenocitev == 'Prihodi turistov - SKUPAJ', drzava != 'DOMAČI', drzava != 'TUJI') %>%
+  group_by(drzava) %>% summarise(stevilo_turistov = sum(stevilo))
 
+drzave_letala <- letaliski_promet %>% 
+  filter(leto == 2015, prihod_odhod == 'Prihod letal') %>% 
+  group_by(drzava) %>% summarise(stevilo_potnikov = sum(stevilo_potnikov))
 
+drzave_primerjava <- inner_join(drzave_turist, drzave_letala)
+drzave_primerjava["razlika"] <- NA
+drzave_primerjava$razlika <- drzave_primerjava$stevilo_turistov - drzave_primerjava$stevilo_potnikov
+
+order.razlika <- order(drzave_primerjava$razlika, decreasing = TRUE)
+drzave_primerjava <- drzave_primerjava[order.razlika, ]
+
+g4 <- ggplot(drzave_primerjava, aes(x=drzava, y=razlika)) + 
+  xlab('Država') + ylab('Razlika') + 
+  geom_col(aes(fill = stevilo_potnikov)) + 
+  scale_x_discrete(limits= drzave_primerjava$drzava) +
+  theme(axis.text.x = element_text(angle = 90, size = 7), axis.title.x = element_blank())
+  
+  
+  
+  
+  
 

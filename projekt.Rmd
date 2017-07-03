@@ -51,19 +51,19 @@ source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 
 Črtni graf \ref{fig:graf1} primerja gibanje prihodov tujih turistov v Slovenijo s številom potnikov v zračnem prometu, ki so prispeli v Slovenijo. Vidimo, da je število prihodov tujih turistov bolj raslo kot število letalskih potnikov.
 
-```{r graf1, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Graf prihodov turistov in letalskih potnikov'}
+```{r graf1, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Prihodi turistov in letalski potniki'}
 print(g1)
 ```
 
 Naslednji graf \ref{fig:graf2} prikazuje izkoriščenost potniških letal, ki so letela iz Slovenije in v Slovenijo od leta 2007 do 2016.
 
-```{r graf2, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Graf izkoriščenosti letal'}
+```{r graf2, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Izkoriščenost letal'}
 print(g2)
 ```
 
 Tudi graf 3 \ref{fig:graf3} prikazuje izkoriščenost, natančneje izkoriščenost stalnih turističnih nastanitvenih kapacitet v Sloveniji.
 
-```{r graf3, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Graf izkoriščenosti nastanitvenih kapacitet'}
+```{r graf3, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Izkoriščenost nastanitvenih kapacitet'}
 print(g3)
 ```
 ***
@@ -82,6 +82,11 @@ Na naslednjem zemljevidu pa je vidno povprečno število nočitev turistov v let
 print(z2)
 ```
 
+Primerjal sem tudi število turistov iz posamezne države s številom potnikov v zračnem prometu iz posamezne države. Ta rezultat je lahko v pomoč letalskim družbam pri vzpostavitvi novih latalskih linij. Na spodnjem grafu je prikazana razlika med turidtičnimi prihodi in letalskimi prihodi, barva stolpca pa označuje število letalskih potnikov iz države. Torej, če je stolpec visok in temen, država predstavlja potencial za novo letalsko linijo. Upoštevati pa moramo tudi razdaljo držav; zaradi bližine sosednih držav se turisti raje odločajo za cenejšo vrsto potovanja, bolj zanimive so bolj oddaljene države.
+
+```{r graf4, echo=FALSE, message=FALSE, fig.align='center', fig.cap=''}
+print(g4)
+```
 ***
 
 # Napredna analiza podatkov
@@ -89,6 +94,6 @@ print(z2)
 
 
 ***
-
-```
+```{r shiny, echo = FALSE}
+shinyAppDir("shiny", options=list(width="100%", height=600))
 ```
