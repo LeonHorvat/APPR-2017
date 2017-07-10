@@ -106,7 +106,6 @@ print(z3)
 
 ***
 
-V spodnji aplikaciji lahko izberemo občino, državo, iz katere prihaja turist, izbiramo pa tudi ali bo graf prikazoval število prihodov turistov ali prenočitev. Iz grafa lahko razberemo napoved za naslednja leta.
 ```{r shiny, echo = FALSE}
 shinyAppDir("shiny", options=list(width="100%", height=600))
 ```
