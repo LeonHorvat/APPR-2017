@@ -32,7 +32,8 @@ zmogljivosti <- read_csv2("podatki/Prenocitvene_zmogljivosti1.csv",
 
 zmogljivosti <- zmogljivosti[-c(30303:30325), ] %>% 
                 fill(1:3) %>%
-                drop_na(stevilo)
+                drop_na(meritev)
+zmogljivosti[is.na(zmogljivosti)] <- 0
                         
 
 #tabela s prihodi in prenočitvami turistov posamezne države

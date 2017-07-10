@@ -60,7 +60,7 @@ zemljevid_slo <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/OB.zip",
 zemljevid_slo <- pretvori.zemljevid(zemljevid_slo)
 
 # tabela prihodov in prenočitev z enakimi imeni občin kot v zemljevidu
-prihodi_obcine <- filter(prihodi_prenocitve, !(obcina %in% c('ZDRAVILIŠKE OBČINE', 'GORSKE OBČINE', 'DRUGE OBČINE', 'OBMORSKE OBČINE', 'MESTNE OBČINE')))
+prihodi_obcine <- filter(prihodi_prenocitve, !(obcina %in% c('ZDRAVILIŠKE OBČINE', 'GORSKE OBČINE', 'DRUGE OBČINE', 'OBMORSKE OBČINE', 'MESTNE OBČINE', 'LJUBLJANA')))
 
 imena_obcin1 <- unique(prihodi_obcine$obcina) %>% sort()
   

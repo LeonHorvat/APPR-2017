@@ -1,9 +1,9 @@
 # 4. faza: Analiza podatkov
 
 #menjava imen občin še v tabeli zmogljivosti
-zmogljivosti_obcine <- filter(zmogljivosti, !(obcina %in% c('ZDRAVILIŠKE OBČINE', 'GORSKE OBČINE', 'DRUGE OBČINE', 'OBMORSKE OBČINE', 'MESTNE OBČINE')))
+zmogljivosti_obcine <- filter(zmogljivosti, !(obcina %in% c('ZDRAVILIŠKE OBČINE', 'GORSKE OBČINE', 'DRUGE OBČINE', 'OBMORSKE OBČINE', 'MESTNE OBČINE', 'LJUBLJANA')))
 
-imena_obcin1 <- unique(zmogljivosti$obcina) %>% sort()
+imena_obcin1 <- unique(zmogljivosti_obcine$obcina) %>% sort()
 
 imena_obcin2 <- levels(zemljevid_slo$OB_UIME)
 
