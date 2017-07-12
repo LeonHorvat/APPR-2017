@@ -36,7 +36,8 @@ k <- kmeans(grupiranje, 4, nstart = 1000)
 skupine <- data.frame(GEO = obcine, skupina = factor(k$cluster))
 
 z3 <- ggplot() + geom_polygon(data = zemljevid_slo %>% left_join(skupine, by = c("OB_UIME" = "GEO")),
-                             aes(x = long, y = lat, group = group, fill = skupina))
+                             aes(x = long, y = lat, group = group, fill = skupina), colour="black") +
+                scale_fill_discrete(name="Skupina")
 
 
 

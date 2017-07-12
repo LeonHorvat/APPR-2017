@@ -77,11 +77,11 @@ prihodi_obcine$obcina <- factor(prihodi_obcine$obcina, levels = imena_obcin2)
 # zemljevid Slovenije pobarvan glede na število prenočitev v občini leta 2016
 prenocitve_obcine_2016 <- prihodi_obcine %>% 
   filter(leto == 2016, prihod_prenocitev == 'Prenočitve turistov - SKUPAJ') %>%
-  group_by(obcina) %>% summarise(logaritmirano_stevilo = log(sum(stevilo), 1.01))
+  group_by(obcina) %>% summarise(stevilo = log(sum(stevilo), 1.00005))
 
 z1 <- ggplot() + geom_polygon(data = inner_join(zemljevid_slo, prenocitve_obcine_2016, by = c("OB_UIME"='obcina')),
-                              aes(x = long, y = lat, group = group, fill = logaritmirano_stevilo)) + 
-      scale_fill_continuous(name="Logaritmirano število")
+                              aes(x = long, y = lat, group = group, fill = stevilo)) + 
+      scale_fill_continuous(name="Logaritmirano število prenočitev")
 
 
 # zemljevid Slovenije pobarvan glede na povprečno število prenočitev turista v občini leta 2016
@@ -115,7 +115,8 @@ g4 <- ggplot(drzave_primerjava, aes(x=drzava, y=razlika)) +
   xlab('Država') + ylab('Razlika') + 
   geom_col(aes(fill = stevilo_potnikov)) + 
   scale_x_discrete(limits= drzave_primerjava$drzava) +
-  theme(axis.text.x = element_text(angle = 90, size = 7), axis.title.x = element_blank())
+  theme(axis.text.x = element_text(angle = 90, size = 7), axis.title.x = element_blank()) + 
+  scale_fill_continuous(name="Število letalskih potnikov")
   
   
   

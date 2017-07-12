@@ -9,13 +9,13 @@ shinyUI(fluidPage(
   
   selectInput(inputId = 'obcina', 
               label = 'Občina:', 
-              choices = prihodi_prenocitve$obcina,
+              choices = unique(prihodi_prenocitve$obcina),
               selected = 'Ljubljana',
               multiple = FALSE),
   
   selectInput(inputId = 'drzava',
               label = 'Država:',
-              choices = prihodi_prenocitve$drzava,
+              choices = unique(prihodi_prenocitve$drzava),
               selected = 'TUJI',
               multiple = FALSE),
   
